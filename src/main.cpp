@@ -23,7 +23,7 @@ void setup() {
 		;
 
 	// Print a welcome message to the Serial port.
-	Serial.println("\n\nCaptive Test, V0.5.0 compiled " __DATE__ " " __TIME__ " by CD_FER\n");  //__DATE__ is provided by the platformio ide
+	Serial.println("\n\nCaptive Test, V0.5.0 compiled " __DATE__ " " __TIME__ "\n");
 	Serial.printf("%s-%d\n\r", ESP.getChipModel(), ESP.getChipRevision());
 
 	startSoftAccessPoint(localIP, gatewayIP);
@@ -38,6 +38,6 @@ void setup() {
 }
 
 void loop() {
-	dnsServer.processNextRequest();	 // I call this atleast every 10ms in my other projects (can be higher but I haven't tested it for stability)
-	delay(DNS_INTERVAL);			 // seems to help with stability, if you are doing other things in the loop this may not be needed
+	dnsServer.processNextRequest();
+	delay(DNS_INTERVAL);	// seems to help with stability, if you are doing other things in the loop this may not be needed
 }
