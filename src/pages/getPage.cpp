@@ -13,11 +13,10 @@ R"=====(
     <body>
       <div class="container">
         <div class="header">
-          <h1>Bem vindo à Wifi-Name</h1>
+          <h1>Welcome to Wifi-Name</h1>
         </div>
         <div class="content">
-          <p>Para acessar esta rede utilize um dos métodos de login abaixo.</p>
-          <p> Este controle é necessário para a segurança de todos. </p>
+          <p>To access this netowrk please login using one othe methods below:</p>
         </div>
       </div>
     </body>
