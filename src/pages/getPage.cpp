@@ -16,7 +16,7 @@ R"=====(
           <h1>Welcome to Wifi-Name</h1>
         </div>
         <div class="content">
-          <p>To access this network please login using one othe methods below:</p>
+          <p>To access this network login using one othe methods below:</p>
         </div>
       </div>
     </body>
