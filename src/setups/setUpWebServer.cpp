@@ -1,6 +1,7 @@
 #include <ESPAsyncWebServer.h>	//https://github.com/me-no-dev/ESPAsyncWebServer using the latest dev version from @me-no-dev
 #include <settings.h>
 #include <pages/getPage.h>
+#include <SPIFFS.h>
 
 void setUpWebServer(AsyncWebServer &server, const IPAddress &localIP) {
     // Pre reading on the fundamentals of captive portals https://textslashplain.com/2022/06/24/captive-portals/
@@ -11,7 +12,7 @@ void setUpWebServer(AsyncWebServer &server, const IPAddress &localIP) {
 	// SAFARI (IOS) popup browser has some severe limitations (javascript disabled, cookies disabled)
 
     const String localIPURL = "http://" + String(IP_PART_1) + "." + String(IP_PART_2) + "." + String(IP_PART_3) + "." + String(IP_PART_4);	 // a string version of the local IP with http, used for redirecting clients to your webpage
-    const char* page PROGMEM = getPage();
+    const char* page PROGMEM = getPage("main");
 
 	// Required
 	server.on("/connecttest.txt", [](AsyncWebServerRequest *request) { request->redirect("http://logout.net"); });	// windows 11 captive portal workaround
@@ -41,6 +42,27 @@ void setUpWebServer(AsyncWebServer &server, const IPAddress &localIP) {
 		response->addHeader("Cache-Control", "public,max-age=31536000");  // save this file to cache for 1 year (unless you refresh)
 		request->send(response);
 		Serial.println("Served Basic HTML Page");
+	});
+
+	server.on("/style.css", HTTP_ANY, [](AsyncWebServerRequest *request) {
+		Serial.println("\nServed Style Css");
+  		String pageStyle = "";
+		File file = SPIFFS.open("/style.css", "r");
+
+		if (SPIFFS.begin(true)) {
+			file = SPIFFS.open("/style.css", "r");
+			if(file) {
+				while (file.available()) {
+					pageStyle += char(file.read());
+				}
+			file.close();
+			}
+
+			SPIFFS.end();
+		}
+		AsyncWebServerResponse *response = request->beginResponse(200, "text/css", pageStyle);
+		response->addHeader("Cache-Control", "public,max-age=31536000");  // save this file to cache for 1 year (unless you refresh)
+		request->send(response);
 	});
 
 	// the catch all
