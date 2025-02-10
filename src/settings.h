@@ -13,3 +13,4 @@
 #define WEB_SERVER_PORT 80
 #define DNS_TTL         3600
 #define DNS_PORT        53 
+#define WIFI_TIMEOUT    10000

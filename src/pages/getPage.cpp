@@ -10,8 +10,8 @@ const char* getPage(char* path) {
   if (SPIFFS.begin(true)) {
     File file;
 
-    if (strcmp(path, "main") == 0) {
-      file = SPIFFS.open("/main.html", "r");
+    if (strcmp(path, "index") == 0) {
+      file = SPIFFS.open("/index.html", "r");
     }
 
     if (file) {
